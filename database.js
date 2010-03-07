@@ -29,3 +29,14 @@ function insertFailedBuild(number, name) {
     tx.executeSql("INSERT INTO FailedBuilds (number, name) VALUES (?, ?)", [parseInt(number), name]);
   }); 
 }
+
+function loadAttendees() {
+  db.transaction(function(tx) {
+    tx.executeSql("SELECT DISTINCT name, COUNT(name) as count FROM FailedBuilds ORDER BY COUNT(name) DESC;", [], function(tx, result) {
+      for (var i = 0; i < result.rows.length; ++i) {
+        insertAttendee(result.rows.item(i).name, result.rows.item(i).count)
+      }
+    });
+  });
+  
+}

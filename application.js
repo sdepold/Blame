@@ -5,9 +5,10 @@ function checkHudson(url) {
     dataType: "json",
     success: function(data){
       if (data.lastFailedBuild != null) {
-        if (data.lastFailedBuild =! lastFailedBuild) {
+        if (parseInt(data.lastFailedBuild.number) != parseInt(lastFailedBuild)) {
           //hit
-          lookupBuild(data.lastFailedBuild.number)
+          lookupBuild(data.lastFailedBuild.number);
+          lastFailedBuild = parseInt(data.lastFailedBuild.number);
         } else {
           console.log('not a new build');
         }
@@ -65,10 +66,36 @@ function playJingle() {
 }
 
 function fail(number, name) {
+  increaseDebt(name);
   playJingle();
   splash(name);
 }
 
-function insertAttendee(name) {
-  $('ul#attendees').append($('<li>').attr('id', 'attendee-'+name.toLowerCase()).attr('class', 'attendee').text(name.toLowerCase()))
+function increaseDebt(name) {
+  attendee = $('ul#attendees li#attendee-'+name.toLowerCase());
+  if (attendee != null) {
+    attendee.data('fails', attendee.data('fails')+1);
+  } else {
+    attendee = insertAttendee(name, 1);
+  }
+  renderDebt(attendee);
+}
+
+function insertAttendee(name, fails) {
+  attendee = $('<li>')
+    .attr('id', 'attendee-'+name.toLowerCase())
+    .attr('class', 'attendee')
+    .text(name.toLowerCase())
+    .data('fails', fails);
+  $('ul#attendees').append(attendee);
+
+  renderDebt(attendee);
+  return attendee;
+}
+
+function renderDebt(attendee) {
+  $(attendee).remove('.deptcounter');
+  $(attendee).append(
+    $('<span>').attr('class', 'deptcounter').text(' - '+attendee.data('fails')+'€')
+  );
 }
