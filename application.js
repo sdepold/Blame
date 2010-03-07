@@ -5,15 +5,18 @@ function checkHudson(url) {
     dataType: "json",
     success: function(data){
       if (data.lastFailedBuild != null) {
-        console.log(data.lastFailedBuild.number);
-        //hit
-        lookupBuild(data.lastFailedBuild.number)
+        if (data.lastFailedBuild =! lastFailedBuild) {
+          //hit
+          lookupBuild(data.lastFailedBuild.number)
+        } else {
+          console.log('not a new build');
+        }
       } else {
         console.log('no failed build available');
       }
     },
     error: function(e, xhr){
-      alert('No connection to twitter.');
+      console.log('No connection to Hudson.');
     }
   });
 }
@@ -24,8 +27,10 @@ function lookupBuild(number) {
     cache: false,
     dataType: "json",
     success: function(data){
-      name = data.culprits[0].fullName
-      fail(number, name)
+      name = data.culprits[0].fullName;
+      
+      insertFailedBuild(number, name)
+      fail(number, name);
     },
     error: function(e, xhr){
       console.log('fetching build failed');

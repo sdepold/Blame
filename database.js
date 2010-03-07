@@ -1,0 +1,31 @@
+var db;
+var lastFailedBuild;
+
+try {
+  if (window.openDatabase) {
+    db = openDatabase("Blame", "1.0", "Blame your colleagues", 200000);
+    if (!db) {
+      alert("Failed to open the database on disk.  This is probably because the version was bad or there is not enough space left in this domain's quota");
+    }
+  } else {
+    alert("Couldn't open the database.  Please try with a WebKit nightly with this feature enabled");
+  }
+} catch(err) { }
+
+function loadLastFailedBuild() {
+  db.transaction(function(tx) {
+    tx.executeSql("SELECT number FROM FailedBuilds ORDER BY number DESC LIMIT 1;", [], function(tx, result) {
+      lastFailedBuild = result.rows.item(0).id;
+    }, function(tx, error) {
+      tx.executeSql("CREATE TABLE FailedBuilds (number REAL UNIQUE, name TEXT)", [], function(result) { 
+        lastFailedBuild = null;
+      });
+    });
+  });
+}
+
+function insertFailedBuild(number, name) {
+  db.transaction(function (tx) {
+    tx.executeSql("INSERT INTO FailedBuilds (number, name) VALUES (?, ?)", [parseInt(number), name]);
+  }); 
+}

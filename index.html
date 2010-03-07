@@ -5,6 +5,7 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script> 
     <script src="static/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="static/jquery.format-1.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="database.js" type="text/javascript" charset="utf-8"></script>
     <script src="application.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
       $(document).ready(function() {
@@ -27,8 +28,9 @@
               .append($('<div>').attr('id', 'countdown').attr('class', 'counter'))
             )
           )
-          .append('<embed src="slot.mp3" autostart=false width=0 height=0 id="sound1" enablejavascript="true">')
-          
+          .append('<embed src="static/slot.mp3" autostart=false width=0 height=0 id="sound1" enablejavascript="true">')
+        
+        loadLastFailedBuild();
         startTimer(60, function() {
           checkHudson('http://de.testwanda.com:9999/job/DaWanda_Imageable/api/json');
         });
