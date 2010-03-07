@@ -15,7 +15,7 @@ try {
 function loadLastFailedBuild() {
   db.transaction(function(tx) {
     tx.executeSql("SELECT number FROM FailedBuilds ORDER BY number DESC LIMIT 1;", [], function(tx, result) {
-      lastFailedBuild = result.rows.item(0).id;
+      lastFailedBuild = parseInt(result.rows.item(0).number);
     }, function(tx, error) {
       tx.executeSql("CREATE TABLE FailedBuilds (number REAL UNIQUE, name TEXT)", [], function(result) { 
         lastFailedBuild = null;
