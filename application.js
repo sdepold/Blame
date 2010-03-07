@@ -1,11 +1,13 @@
-function parseFeed(url) {
+function checkHudson(url) {
   $.ajax({
     url: url,
     cache: false,
     dataType: "json",
     success: function(data){
       if (data.lastFailedBuild != null) {
-        console.log(getBuild(data.lastFailedBuild.number));
+        console.log(data.lastFailedBuild.number);
+        //hit
+        lookupBuild(data.lastFailedBuild.number)
       } else {
         console.log('no failed build available');
       }
@@ -16,16 +18,17 @@ function parseFeed(url) {
   });
 }
 
-function getBuild(number) {
+function lookupBuild(number) {
   $.ajax({
-    url: "http://de.testwanda.com:9999/job/DaWandaMaster/"+number+"/api/json",
+    url: "http://de.testwanda.com:9999/job/DaWanda_Imageable/"+number+"/api/json",
     cache: false,
     dataType: "json",
     success: function(data){
-      return data;
+      name = data.culprits[0].fullName
+      fail(number, name)
     },
     error: function(e, xhr){
-      return null;
+      console.log('fetching build failed');
     }
   });
 }
@@ -50,5 +53,13 @@ function splash(name) {
         $('#splash_container').remove();
       }))
     )
- document.getElementById('sound1').Play();
+}
+
+function playJingle() {
+  document.getElementById('sound1').Play();
+}
+
+function fail(buildId, name) {
+  playJingle();
+  splash(name);
 }
