@@ -16,12 +16,8 @@
               .append($('<h1>').text('Blame'))
             )
           )
-          .append($('<ul>').attr('id', 'attendees')
-            .append($('<div>').attr('class', 'center')
-              .append($('<li>').attr('class', 'attendee').text('Micha'))
-              .append($('<li>').attr('class', 'attendee').text('Mark'))
-              .append($('<li>').attr('class', 'attendee').text('Roman'))
-            )
+          .append($('<div>').attr('class', 'center')
+            .append($('<ul>').attr('id', 'attendees'))
           )
           .append($('<div>').attr('id', 'footer')
             .append($('<div>').attr('class', 'center')
@@ -34,6 +30,11 @@
         startTimer(60, function() {
           checkHudson('http://de.testwanda.com:9999/job/DaWanda_Imageable/api/json');
         });
+        
+        // debug
+        insertAttendee('Micha');
+        insertAttendee('Mark');
+        insertAttendee('Micha');
       });
     </script>  
   </head>  

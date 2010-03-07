@@ -64,7 +64,11 @@ function playJingle() {
   document.getElementById('sound1').Play();
 }
 
-function fail(buildId, name) {
+function fail(number, name) {
   playJingle();
   splash(name);
+}
+
+function insertAttendee(name) {
+  $('ul#attendees').append($('<li>').attr('id', 'attendee-'+name.toLowerCase()).attr('class', 'attendee').text(name.toLowerCase()))
 }
