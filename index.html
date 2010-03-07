@@ -1,9 +1,12 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">  
 <html>          
   <head>
+    <link rel="stylesheet" href="static/stylesheet.css" type="text/css" media="screen" charset="utf-8">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script> 
-    <script src="http://github.com/asual/jquery-format/raw/master/dist/jquery.format-1.1.min.js" type="text/javascript" charset="utf-8"></script>
-    <script type="text/javascript">  
+    <script src="static/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="static/jquery.format-1.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="application.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
       $(document).ready(function() {
         $('body')
           .append($('<div>').attr('id', 'header')
@@ -27,136 +30,11 @@
           .append('<embed src="slot.mp3" autostart=false width=0 height=0 id="sound1" enablejavascript="true">')
           
         startTimer(60, function() {
-          parseFeed('http://de.testwanda.com:9999/job/DaWandaMaster/api/json');
+          parseFeed('http://de.testwanda.com:9999/job/DaWanda_Imageable/api/json');
           //parseFeed('http://twitter.com/statuses/user_timeline/chaossteffen.json');
         });
       });
-      
-      function parseFeed(url) {
-        $.ajax({
-          url: url,
-          cache: false,
-          dataType: "json",
-          success: function(data){
-            if (data.lastFailedBuild != null) {
-              console.log(getBuild(data.lastFailedBuild.number));
-            } else {
-              console.log('no failed build available');
-            }
-          },
-          error: function(e, xhr){
-            alert('No connection to twitter.');
-          }
-        });
-      }
-      
-      function getBuild(number) {
-        $.ajax({
-          url: "http://de.testwanda.com:9999/job/DaWandaMaster/"+number+"/api/json",
-          cache: false,
-          dataType: "json",
-          success: function(data){
-            return data;
-          },
-          error: function(e, xhr){
-            return null;
-          }
-        });
-      }
-      
-      function startTimer(seconds, callback) {
-        var timerCounter = seconds;
-        var intervalID = window.setInterval(function() {
-          timerCounter--;
-          if (timerCounter == 0) {
-            timerCounter = seconds;
-            callback();
-            console.log('your time is over');
-          }
-          $('#countdown').text(timerCounter + ' seconds');
-        }, 1000);
-      }
-      
-      function splash(name) {
-        $('body')
-          .append($('<div>').attr('id', 'splash_container')
-            .append($('<div>').attr('id', 'splash').text(name).click(function() {
-              $('#splash_container').remove();
-            }))
-          )
-       document.getElementById('sound1').Play();
-      }
     </script>  
-    <style type="text/css" media="screen">
-      body {
-        margin: 0;
-        font-family: Helvetica, Arial, sans-serif;
-        font-size: 48px;
-        color: #333;
-        overflow: hidden;
-      }
-      h1 {
-        margin: 0;
-        line-height: 1.3em;
-        font-size: 72px;
-        letter-spacing: -1px;
-        text-shadow: rgba(0, 0, 0, 0.296875) -1px -1px 1px;
-      }
-      ul {
-        list-style: none;
-        line-height: 1.5em;
-      }
-      .center {
-        width: 960px;
-        margin: 0 auto 0 auto;
-      }
-      #header {
-        background: #111 url('http://fc03.deviantart.net/fs39/f/2008/324/6/f/Torn_Pattern_by_steveni70.jpg') center top;
-        color: #FFF;
-        margin-top: 33px;
-        border-top: 1px solid #000;
-        border-bottom: 1px solid #000;
-        -webkit-box-shadow: 0px 3px 50px #888; 
-      }
-      #footer {
-        font-size: 24px;
-        line-height: 1.7em;
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        border-top: 1px solid #888;
-        text-align: right;
-        -webkit-box-shadow: 0px -3px 30px #CCC; 
-      }
-      #splash_container {
-        background: #333;
-        opacity: 0.9;
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        left: 0;
-        top: 0;
-        z-index: 5;
-      }
-      #splash {
-        font-size: 180px;
-        font-weight: bold;
-        text-align: center;
-        color: #111;
-        background: #fff;
-        opacity: 1;
-        width: 62%;
-        height: 200px;
-        margin-top: -100px;
-        position: fixed;
-        left: 19%;
-        top: 50%;
-        -webkit-border-radius: 5px; 
-        border: 1px solid #FFF; 
-        padding: 10px;
-        z-index: 10;
-      }
-    </style>
   </head>  
   <body></body>  
 </html> 
