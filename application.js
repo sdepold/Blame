@@ -1,3 +1,7 @@
+String.prototype.capitalize = function(){
+   return this.replace( /(^|\s)([a-z])/g , function(m,p1,p2){ return p1+p2.toUpperCase(); } );
+  };
+
 function checkHudson(url) {
   $.ajax({
     url: url,
@@ -85,7 +89,7 @@ function insertAttendee(name, fails) {
   attendee = $('<li>')
     .attr('id', 'attendee-'+name.toLowerCase())
     .attr('class', 'attendee')
-    .text(name.toLowerCase())
+    .text(name.capitalize())
     .data('fails', fails);
   $('ul#attendees').append(attendee);
 

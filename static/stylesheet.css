@@ -67,3 +67,11 @@ ul {
   padding: 10px;
   z-index: 10;
 }
+span.debt {
+  margin-left: 1em;
+}
+span.debt img{
+  position: relative;
+  top: 0.2em;
+}
+
