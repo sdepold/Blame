@@ -24,7 +24,7 @@ function checkHudson(url) {
 
 function lookupBuild(number) {
   $.ajax({
-    url: "http://de.testwanda.com:9999/job/DaWanda_Imageable/"+number+"/api/json",
+    url: "http://de.testwanda.com:9999/job/DaWandaMaster/"+number+"/api/json",
     cache: false,
     dataType: "json",
     success: function(data){
@@ -94,8 +94,16 @@ function insertAttendee(name, fails) {
 }
 
 function renderDebt(attendee) {
+  fails = attendee.data('fails');
+  full = parseInt(fails / 5);
+  rest = (fails % 5);
+  
+  span = $('<span>').attr('class', 'debt');
+  for(var i = 1; i < full; i++) {
+    span.append($('<img>').attr('src', 'static/5.gif'));
+  }
+  span.append($('<img>').attr('src', 'static/'+rest+'.gif'));
+
   $(attendee).find('.debt').remove();
-  $(attendee).append(
-    $('<span>').attr('class', 'debt').text(' - '+attendee.data('fails')+'€')
-  );
+  $(attendee).append(span);
 }
