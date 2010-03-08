@@ -73,7 +73,7 @@ function fail(number, name) {
 
 function increaseDebt(name) {
   attendee = $('ul#attendees li#attendee-'+name.toLowerCase());
-  if (attendee != null) {
+  if (attendee.length != 0) {
     attendee.data('fails', attendee.data('fails')+1);
   } else {
     attendee = insertAttendee(name, 1);
@@ -94,8 +94,8 @@ function insertAttendee(name, fails) {
 }
 
 function renderDebt(attendee) {
-  $(attendee).remove('.deptcounter');
+  $(attendee).find('.debt').remove();
   $(attendee).append(
-    $('<span>').attr('class', 'deptcounter').text(' - '+attendee.data('fails')+'€')
+    $('<span>').attr('class', 'debt').text(' - '+attendee.data('fails')+'€')
   );
 }

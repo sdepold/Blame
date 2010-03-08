@@ -15,7 +15,9 @@ try {
 function loadLastFailedBuild() {
   db.transaction(function(tx) {
     tx.executeSql("SELECT number FROM FailedBuilds ORDER BY number DESC LIMIT 1;", [], function(tx, result) {
-      lastFailedBuild = parseInt(result.rows.item(0).number);
+      if (result.rows.length > 0) {
+        lastFailedBuild = parseInt(result.rows.item(0).number);
+      }
     }, function(tx, error) {
       tx.executeSql("CREATE TABLE FailedBuilds (number REAL UNIQUE, name TEXT)", [], function(result) { 
         lastFailedBuild = null;
@@ -34,7 +36,9 @@ function loadAttendees() {
   db.transaction(function(tx) {
     tx.executeSql("SELECT DISTINCT name, COUNT(name) as count FROM FailedBuilds ORDER BY COUNT(name) DESC;", [], function(tx, result) {
       for (var i = 0; i < result.rows.length; ++i) {
-        insertAttendee(result.rows.item(i).name, result.rows.item(i).count)
+        if (result.rows.item(i).name != null) {
+          insertAttendee(result.rows.item(i).name, result.rows.item(i).count)
+        }
       }
     });
   });
