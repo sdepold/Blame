@@ -10,25 +10,10 @@
     <script src="application.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
       $(document).ready(function() {
-        $('body')
-          .append($('<div>').attr('id', 'header')
-            .append($('<div>').attr('class', 'center')
-              .append($('<h1>').attr('id', 'date').css('float', 'right').text($.format.date(new Date(), 'MMMM')))
-              .append($('<h1>').text('Blame'))
-            )
-          )
-          .append($('<div>').attr('class', 'center')
-            .append($('<ul>').attr('id', 'attendees'))
-          )
-          .append($('<div>').attr('id', 'footer')
-            .append($('<div>').attr('class', 'center')
-              .append($('<div>').attr('id', 'countdown').attr('class', 'counter'))
-            )
-          )
-          .append('<embed src="static/slot.wav" autostart=false width=0 height=0 id="sound1" enablejavascript="true">')
-        
-        loadLastFailedBuild();
-        loadAttendees();
+        Frontend.init();
+        $(Attendees.list()).each(function(index, name){
+          Frontend.renderOrUpdateAttendee(name, $K(name));
+        });
         startTimer(60, function() {
           checkHudson('http://de.testwanda.com:9999/job/DaWandaMaster/api/json');
         });

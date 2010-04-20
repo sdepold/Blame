@@ -1,46 +1,37 @@
-var db;
-var lastFailedBuild;
-
-try {
-  if (window.openDatabase) {
-    db = openDatabase("Blame", "1.0", "Blame your colleagues", 200000);
-    if (!db) {
-      alert("Failed to open the database on disk.  This is probably because the version was bad or there is not enough space left in this domain's quota");
-    }
+// define get and set function
+var $K = function(key, value){
+  if (value === undefined){
+    return localStorage.getItem(key);
   } else {
-    alert("Couldn't open the database.  Please try with a WebKit nightly with this feature enabled");
+    return localStorage.setItem(key, value);
   }
-} catch(err) { }
+};
 
-function loadLastFailedBuild() {
-  db.transaction(function(tx) {
-    tx.executeSql("SELECT number FROM FailedBuilds ORDER BY number DESC LIMIT 1;", [], function(tx, result) {
-      if (result.rows.length > 0) {
-        lastFailedBuild = parseInt(result.rows.item(0).number);
-      }
-    }, function(tx, error) {
-      tx.executeSql("CREATE TABLE FailedBuilds (number REAL UNIQUE, name TEXT)", [], function(result) { 
-        lastFailedBuild = null;
-      });
+var Attendees = {
+  add: function (name) {
+    attendees = Attendees.list();
+    attendees.push(name);
+    $K(name, 0);
+    $K('attendees', attendees);
+  },
+  exists: function (name) {
+    names = jQuery.grep(Attendees.list(), function(n, index) {
+      return name == n;
     });
-  });
-}
-
-function insertFailedBuild(number, name) {
-  db.transaction(function (tx) {
-    tx.executeSql("INSERT INTO FailedBuilds (number, name) VALUES (?, ?)", [parseInt(number), name]);
-  }); 
-}
-
-function loadAttendees() {
-  db.transaction(function(tx) {
-    tx.executeSql("SELECT DISTINCT name, COUNT(name) as count FROM FailedBuilds ORDER BY COUNT(name) DESC;", [], function(tx, result) {
-      for (var i = 0; i < result.rows.length; ++i) {
-        if (result.rows.item(i).name != null) {
-          insertAttendee(result.rows.item(i).name, result.rows.item(i).count)
-        }
-      }
-    });
-  });
-  
+    return names.length > 0;
+  },
+  list: function () {
+    return $K('attendees').split(',');
+  },
+  blame: function(name) {
+    if (!Attendees.exists(name)) {
+      Attendees.add(name);
+    }
+    $K(name, parseInt($K(name))+1);
+    
+    Frontend.renderOrUpdateAttendee(name, $K(name))
+    Frontend.renderDebt(name);
+    Frontend.playJingle();
+    Frontend.splash(name);
+  }
 }
