@@ -12,7 +12,7 @@ var Attendees = {
     return names.length > 0;
   },
   list: function () {
-    return jQuery.k('attendees').split(',');
+    return jQuery.k('attendees');
   },
   blame: function(name) {
     if (!Attendees.exists(name)) {
