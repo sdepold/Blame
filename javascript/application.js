@@ -8,6 +8,10 @@ $(document).ready(function() {
   });
 });
 
+// setup
+if (jQuery.k('attendees') == null)
+  jQuery.k('attendees', []);
+
 function checkHudson(url) {
   $.ajax({
     url: url,
