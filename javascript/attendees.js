@@ -21,7 +21,6 @@ var Attendees = {
     jQuery.k(name, parseInt(jQuery.k(name))+1);
     
     Frontend.renderOrUpdateAttendee(name, jQuery.k(name))
-    Frontend.renderDebt(name);
     Frontend.playJingle();
     Frontend.splash(name);
   }
