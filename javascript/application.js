@@ -8,28 +8,16 @@ $(document).ready(function() {
   });
 });
 
-
-
-
 function checkHudson(url) {
   $.ajax({
     url: url,
     cache: false,
     dataType: "json",
     success: function(data){
-      if (data.lastSuccessfulBuild != null)
-        jQuery.k('lastSuccessfulBuild', parseInt(data.lastSuccessfulBuild.number));
-      if (data.lastFailedBuild != null)
-        jQuery.k('lastFailedBuild', parseInt(data.lastFailedBuild.number));
-
-      if (data.lastFailedBuild != null && data.lastSuccessfulBuild != null) {
-        if (isNewFail()) {
-          lookupBuild(jQuery.k('lastFailedBuild'));
-        } else {
-          console.log('not a new failed build');
-        }
+      if (isNewFail(data.color)) {
+        lookupBuild(data.lastFailedBuild);
       } else {
-        console.log('no failed build available');
+        console.log('not a new failed build');
       }
     },
     error: function(e, xhr){
@@ -38,22 +26,13 @@ function checkHudson(url) {
   });
 }
 
-function isNewFail() { 
-  lastSuccessfulBuildNumber = parseInt(jQuery.k('lastSuccessfulBuild'));
-  lastFailedBuildNumber = parseInt(jQuery.k('lastFailedBuild'));
-
-  if (lastSuccessfulBuildNumber > lastFailedBuildNumber) {
-    // Build is green
-    jQuery.k('currentBuildIsBroken', false)
-    return false;
+function isNewFail(color) {
+  if(color == 'red' && jQuery.k('color') == 'blue' ) {
+    jQuery.k('color', 'red');
+    return true;
   } else {
-    // Build is red
-    if (jQuery.k('currentBuildIsBroken')) {
-      return false;
-    } else {
-      jQuery.k('currentBuildIsBroken', true)    
-      return true;      
-    }
+    jQuery.k('color', color);
+    return false;
   }
 }
 
