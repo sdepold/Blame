@@ -3,22 +3,13 @@
   <head>
     <title>Blame</title>
     <link rel="stylesheet" href="static/stylesheet.css" type="text/css" media="screen" charset="utf-8">
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script> 
-    <script src="static/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="static/jquery.format-1.1.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="database.js" type="text/javascript" charset="utf-8"></script>
-    <script src="application.js" type="text/javascript" charset="utf-8"></script>
-    <script type="text/javascript">
-      $(document).ready(function() {
-        Frontend.init();
-        $(Attendees.list()).each(function(index, name){
-          Frontend.renderOrUpdateAttendee(name, $K(name));
-        });
-        startTimer(60, function() {
-          checkHudson('http://de.testwanda.com:9999/job/DaWandaMaster/api/json');
-        });
-      });
-    </script>  
+    <script src="vendor/jquery-1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="vendor/jquery.format-1.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="vendor/json2.js" type="text/javascript" charset="utf-8"></script>
+    <script src="javascript/utils.js" type="text/javascript" charset="utf-8"></script>
+    <script src="javascript/attendees.js" type="text/javascript" charset="utf-8"></script>
+    <script src="javascript/frontend.js" type="text/javascript" charset="utf-8"></script>
+    <script src="javascript/application.js" type="text/javascript" charset="utf-8"></script>
   </head>  
   <body></body>  
 </html> 

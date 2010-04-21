@@ -1,18 +1,9 @@
-// define get and set function
-var $K = function(key, value){
-  if (value === undefined){
-    return localStorage.getItem(key);
-  } else {
-    return localStorage.setItem(key, value);
-  }
-};
-
 var Attendees = {
   add: function (name) {
     attendees = Attendees.list();
     attendees.push(name);
-    $K(name, 0);
-    $K('attendees', attendees);
+    jQuery.k(name, 0);
+    jQuery.k('attendees', attendees);
   },
   exists: function (name) {
     names = jQuery.grep(Attendees.list(), function(n, index) {
@@ -21,15 +12,15 @@ var Attendees = {
     return names.length > 0;
   },
   list: function () {
-    return $K('attendees').split(',');
+    return jQuery.k('attendees').split(',');
   },
   blame: function(name) {
     if (!Attendees.exists(name)) {
       Attendees.add(name);
     }
-    $K(name, parseInt($K(name))+1);
+    jQuery.k(name, parseInt(jQuery.k(name))+1);
     
-    Frontend.renderOrUpdateAttendee(name, $K(name))
+    Frontend.renderOrUpdateAttendee(name, jQuery.k(name))
     Frontend.renderDebt(name);
     Frontend.playJingle();
     Frontend.splash(name);
