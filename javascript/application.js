@@ -19,7 +19,7 @@ function checkHudson(url) {
     dataType: "json",
     success: function(data){
       if (isNewFail(data.color)) {
-        lookupBuild(data.lastFailedBuild);
+        lookupBuild(data.lastBuild.number);
       } else {
         console.log('not a new failed build');
       }
