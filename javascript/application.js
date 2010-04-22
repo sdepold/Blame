@@ -4,7 +4,7 @@ $(document).ready(function() {
     Frontend.renderOrUpdateAttendee(name, jQuery.k(name));
   });
   startTimer(60, function() {
-    checkHudson('http://de.testwanda.com:9999/job/DaWandaMaster/api/json');
+    checkHudson(jQuery.k('url')+'api/json');
   });
 });
 
@@ -15,6 +15,8 @@ if (jQuery.k('attendees') == null)
 if (jQuery.k('color') == null)
   jQuery.k('color', 'blue');
 
+if (jQuery.k('url') == null)
+  prompt('Enter you Hudson project URL (e.g. "http://your.server.com:1234/job/MyProject/"):')
 
 function checkHudson(url) {
   $.ajax({
@@ -46,7 +48,7 @@ function isNewFail(color) {
 
 function lookupBuild(number) {
   $.ajax({
-    url: "http://de.testwanda.com:9999/job/DaWandaMaster/"+number+"/api/json",
+    url: jQuery.k('url')+Number+"/api/json",
     cache: false,
     dataType: "json",
     success: function(data){
