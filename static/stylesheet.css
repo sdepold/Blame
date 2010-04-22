@@ -54,14 +54,16 @@ ul {
   color: #111;
   background: #fff;
   opacity: 1;
-  width: 62%;
+  width: 90%;
   height: 200px;
   margin-top: -100px;
   position: fixed;
-  left: 19%;
+  left: 5%;
   top: 50%;
   -webkit-border-radius: 8px; 
   z-index: 10;
+  white-space: nowrap;
+}
 #splash span {
   font-size: 180px;
   font-weight: bold;

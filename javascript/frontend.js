@@ -49,12 +49,12 @@ var Frontend = {
     $(attendee).append(span);
   },
   renderOrUpdateAttendee: function (name, fails) {
-    attendee = $('ul#attendees li#attendee-'+name.toLowerCase());
+    attendee = $('ul#attendees li#attendee-'+name.toLowerCase().replace(/ /g,''));
     if (attendee.length != 0) {
       attendee.data('fails', fails);
     } else {
       attendee = $('<li>')
-        .attr('id', 'attendee-'+name.toLowerCase())
+        .attr('id', 'attendee-'+name.toLowerCase().replace(/ /g,''))
         .attr('class', 'attendee')
         .text(name.capitalize())
         .data('fails', fails);
