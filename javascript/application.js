@@ -12,6 +12,10 @@ $(document).ready(function() {
 if (jQuery.k('attendees') == null)
   jQuery.k('attendees', []);
 
+if (jQuery.k('color') == null)
+  jQuery.k('color', 'blue');
+
+
 function checkHudson(url) {
   $.ajax({
     url: url,
