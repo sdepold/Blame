@@ -18,12 +18,18 @@ var Frontend = {
       .append('<embed src="static/slot.wav" autostart=false width=0 height=0 id="sound1" enablejavascript="true">')
   },
   splash: function (name) {
-    $('body')
-      .append($('<div>').attr('id', 'splash_container')
-        .append($('<div>').attr('id', 'splash').text(name).click(function() {
-          $('#splash_container').remove();
-        }))
-     )
+    if ($('#splash_container').size() == 0) {
+      $('body')
+        .append($('<div>').attr('id', 'splash_container')
+          .append($('<div>').attr('id', 'splash').click(function() {$('#splash_container').remove();})
+            .append($('<span>').text(name))
+            .append($('<div>').attr('id', 'appendix'))         
+          )
+        )      
+    } else {
+      $('#splash_container #splash #appendix').append('<hr /><small>'+name+'</small>')
+    }
+
   },
   playJingle: function () {
     document.getElementById('sound1').Play();

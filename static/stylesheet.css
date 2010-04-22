@@ -50,8 +50,6 @@ ul {
   z-index: 5;
 }
 #splash {
-  font-size: 180px;
-  font-weight: bold;
   text-align: center;
   color: #111;
   background: #fff;
@@ -62,10 +60,27 @@ ul {
   position: fixed;
   left: 19%;
   top: 50%;
-  -webkit-border-radius: 5px; 
-  border: 1px solid #FFF; 
-  padding: 10px;
+  -webkit-border-radius: 8px; 
   z-index: 10;
+#splash span {
+  font-size: 180px;
+  font-weight: bold;
+}
+#splash #appendix {
+  position: relative;
+  top: -20px;
+  padding-bottom: 0.1em;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  color: #111;
+  background: #fff;
+  opacity: 1;
+  z-index: 10;
+  -webkit-border-radius: 8px; 
+}
+#splash #appendix hr {
+  margin: 0.1em auto;
 }
 span.debt {
   margin-left: 1em;
