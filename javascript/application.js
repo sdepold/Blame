@@ -52,7 +52,7 @@ function lookupBuild(number) {
     cache: false,
     dataType: "json",
     success: function(data){
-      Attendee.blame(data.culprits[0].fullName);
+      Attendees.blame(data.culprits[0].fullName);
     },
     error: function(e, xhr){
       console.log('fetching build failed');
