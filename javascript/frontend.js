@@ -43,7 +43,8 @@ var Frontend = {
     for(var i = 1; i < full; i++) {
       span.append($('<img>').attr('src', 'static/5.gif'));
     }
-    span.append($('<img>').attr('src', 'static/'+rest+'.gif'));
+    if (rest > 0)
+      span.append($('<img>').attr('src', 'static/'+rest+'.gif'));
     
     $(attendee).find('.debt').remove();
     $(attendee).append(span);
