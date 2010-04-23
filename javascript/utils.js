@@ -5,8 +5,20 @@ String.prototype.capitalize = function(){
 // define get and set function
 jQuery.k = function(key, value){
   if (value === undefined){
-    return JSON.parse(localStorage.getItem(key));
+    item = localStorage.getItem(key)
+    if (item != null) {
+      return JSON.parse(item);
+    } else {
+      return null
+    }
   } else {
     return localStorage.setItem(key, JSON.stringify(value));
   }
 };
+
+function debug(text) {
+  if (window.console != undefined) {
+    console.log(text);
+  }
+}
+

@@ -1,22 +1,23 @@
 $(document).ready(function() {
   Frontend.init();
   $(Attendees.list()).each(function(index, name){
-    Frontend.renderOrUpdateAttendee(name, jQuery.k(name));
+    if(name != undefined && name != null && name != window.document)
+      Frontend.renderOrUpdateAttendee(name, jQuery.k(name));
   });
   startTimer(60, function() {
     checkHudson(jQuery.k('url')+'api/json');
   });
+
+  // setup
+  if (jQuery.k('attendees') == null)
+    jQuery.k('attendees', []);
+
+  if (jQuery.k('color') == null)
+    jQuery.k('color', 'blue');
+
+  if (jQuery.k('url') == null)    
+    jQuery.k('url',prompt('Enter you Hudson project URL (e.g. "http://your.server.com:1234/job/MyProject/"):'));
 });
-
-// setup
-if (jQuery.k('attendees') == null)
-  jQuery.k('attendees', []);
-
-if (jQuery.k('color') == null)
-  jQuery.k('color', 'blue');
-
-if (jQuery.k('url') == null)
-  jQuery.k('url', prompt('Enter you Hudson project URL (e.g. "http://your.server.com:1234/job/MyProject/"):'));
 
 function checkHudson(url) {
   $.ajax({
@@ -27,11 +28,11 @@ function checkHudson(url) {
       if (isNewFail(data.color)) {
         lookupBuild(data.lastBuild.number);
       } else {
-        console.log('not a new failed build');
+        debug('not a new failed build');
       }
     },
     error: function(e, xhr){
-      console.log('No connection to Hudson.');
+      debug('No connection to Hudson.');
     }
   });
 }
@@ -52,10 +53,11 @@ function lookupBuild(number) {
     cache: false,
     dataType: "json",
     success: function(data){
+      //TODO: Blame all participants
       Attendees.blame(data.culprits[0].fullName);
     },
     error: function(e, xhr){
-      console.log('fetching build failed');
+      debug('fetching build failed');
     }
   });
 }
@@ -67,7 +69,7 @@ function startTimer(seconds, callback) {
     if (timerCounter == 0) {
       timerCounter = seconds;
       callback();
-      console.log('your time is over');
+      debug('your time is over');
     }
     $('#countdown').text(timerCounter + ' seconds');
   }, 1000);
