@@ -15,7 +15,7 @@ var Frontend = {
           .append($('<div>').attr('id', 'countdown').attr('class', 'counter'))
         )
       )
-      .append('<embed src="static/slot.wav" autostart=false width=0 height=0 id="sound1" enablejavascript="true" style="display: none">')
+      .append('<embed src="static/slot.wav" autostart=false width=0 height=0 id="sound1" enablejavascript="true">')
   },
   splash: function (name) {
     if ($('#splash_container').size() == 0) {
