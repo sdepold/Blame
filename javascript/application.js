@@ -48,7 +48,7 @@ function isNewFail(color) {
 
 function lookupBuild(number) {
   $.ajax({
-    url: jQuery.k('url')+Number+"/api/json",
+    url: jQuery.k('url')+number+"/api/json",
     cache: false,
     dataType: "json",
     success: function(data){
