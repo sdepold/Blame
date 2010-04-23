@@ -20,19 +20,11 @@ $(document).ready(function() {
 });
 
 function checkHudson(url) {
-  $.ajax({
-    url: url,
-    cache: false,
-    dataType: "json",
-    success: function(data){
-      if (isNewFail(data.color)) {
-        lookupBuild(data.lastBuild.number);
-      } else {
-        debug('not a new failed build');
-      }
-    },
-    error: function(e, xhr){
-      debug('No connection to Hudson.');
+  $.getJSON(url, function (data){
+    if (isNewFail(data.color)) {
+      lookupBuild(data.lastBuild.number);
+    } else {
+      debug('not a new failed build');
     }
   });
 }
@@ -48,17 +40,8 @@ function isNewFail(color) {
 }
 
 function lookupBuild(number) {
-  $.ajax({
-    url: jQuery.k('url')+number+"/api/json",
-    cache: false,
-    dataType: "json",
-    success: function(data){
-      //TODO: Blame all participants
-      Attendees.blame(data.culprits[0].fullName);
-    },
-    error: function(e, xhr){
-      debug('fetching build failed');
-    }
+  $.getJSON(jQuery.k('url')+number+"/api/json", function (data){
+    Attendees.blame(data.culprits[0].fullName);
   });
 }
 
