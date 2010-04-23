@@ -5,7 +5,7 @@ $(document).ready(function() {
       Frontend.renderOrUpdateAttendee(name, jQuery.k(name));
   });
   startTimer(60, function() {
-    checkHudson(jQuery.k('url')+'api/json');
+    checkHudson(jQuery.k('url')+'api/json?jsonp=?');
   });
 
   // setup
@@ -40,7 +40,7 @@ function isNewFail(color) {
 }
 
 function lookupBuild(number) {
-  $.getJSON(jQuery.k('url')+number+"/api/json", function (data){
+  $.getJSON(jQuery.k('url')+number+"/api/json?jsonp=?", function (data){
     Attendees.blame(data.culprits[0].fullName);
   });
 }
