@@ -16,7 +16,7 @@ if (jQuery.k('color') == null)
   jQuery.k('color', 'blue');
 
 if (jQuery.k('url') == null)
-  prompt('Enter you Hudson project URL (e.g. "http://your.server.com:1234/job/MyProject/"):')
+  jQuery.k('url', prompt('Enter you Hudson project URL (e.g. "http://your.server.com:1234/job/MyProject/"):'));
 
 function checkHudson(url) {
   $.ajax({
