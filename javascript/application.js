@@ -1,4 +1,6 @@
 $(document).ready(function() {
+  if (jQuery.k('polling_time') == null)
+    jQuery.k('polling_time', 60);
   Frontend.init();
   $(Attendees.list()).each(function(index, name){
     if(name != undefined && name != null && name != window.document)

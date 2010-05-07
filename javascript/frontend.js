@@ -12,7 +12,11 @@ var Frontend = {
       )
       .append($('<div>').attr('id', 'footer')
         .append($('<div>').attr('class', 'center')
-          .append($('<div>').attr('id', 'countdown').attr('class', 'counter'))
+          .append($('<div>').attr('id', 'countdown').attr('class', 'counter')
+            .click(function(){
+              jQuery.k('polling_time',prompt('Enter polling time:'))
+            })     
+          )
         )
       )
       .append('<embed src="static/slot.wav" autostart=false width=0 height=0 id="sound1" enablejavascript="true">')
