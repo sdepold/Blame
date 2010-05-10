@@ -31,13 +31,20 @@ function checkHudson(url) {
   });
 }
 
-function isNewFail(color) {
-  if(color == 'red' && jQuery.k('color') == 'blue' ) {
-    jQuery.k('color', 'red');
-    return true;
-  } else {
-    jQuery.k('color', color);
-    return false;
+function isNewFail(url, color) {
+  if (color == 'blue' || color == 'red') {
+    key = url + '_color'
+  
+    if (jQuery.k(key) == null)
+      jQuery.k(key, 'blue');
+
+    if(color == 'red' && jQuery.k(key) == 'blue' ) {
+      jQuery.k(key, 'red');
+      return true;
+    } else {
+      jQuery.k(key, color);
+      return false;
+    }
   }
 }
 
