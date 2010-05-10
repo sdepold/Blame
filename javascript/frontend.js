@@ -21,17 +21,19 @@ var Frontend = {
       )
       .append('<embed src="static/slot.wav" autostart=false width=0 height=0 id="sound1" enablejavascript="true">')
   },
-  splash: function (name) {
+  splash: function (name, repo) {
     if ($('#splash_container').size() == 0) {
       $('body')
         .append($('<div>').attr('id', 'splash_container')
           .append($('<div>').attr('id', 'splash').click(function() {$('#splash_container').remove();})
             .append($('<span>').text(name))
+            .append($('<small>').html(' on '+repo))
+
             .append($('<div>').attr('id', 'appendix'))         
           )
         )      
     } else {
-      $('#splash_container #splash #appendix').append('<hr /><small>'+name+'</small>')
+      $('#splash_container #splash #appendix').append('<hr /><small>'+name+' on '+repo+'</small>')
     }
 
   },

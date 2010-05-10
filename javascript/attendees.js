@@ -14,7 +14,7 @@ var Attendees = {
   list: function () {
     return jQuery.k('attendees');
   },
-  blame: function(name) {
+  blame: function(name, repo) {
     if (!Attendees.exists(name)) {
       Attendees.add(name);
     }
@@ -22,6 +22,6 @@ var Attendees = {
     
     Frontend.renderOrUpdateAttendee(name, jQuery.k(name))
     Frontend.playJingle();
-    Frontend.splash(name);
+    Frontend.splash(name, repo);
   }
 }
