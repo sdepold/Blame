@@ -92,3 +92,15 @@ span.debt img{
   top: 0.2em;
 }
 
+@-webkit-keyframes pulse {
+  0% { color: black; }
+ 40% { color: red; }
+ 60% { color: red; }
+ 100% { color: black; }
+}
+
+div#splash {
+  -webkit-animation-name: pulse;
+  -webkit-animation-duration: 1s;
+	-webkit-animation-iteration-count: infinite;
+}
