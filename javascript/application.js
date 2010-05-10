@@ -50,8 +50,10 @@ function isNewFail(repo, url, color) {
 
 function lookupBuild(repo, url, number) {
   $.getJSON(url+number+"/api/json?jsonp=?", function (data){
-    //TODO: Blame all participants
-    Attendees.blame(data.culprits[0].fullName, repo);
+    badBoys = jQuery.unique(data.culprits)
+    jQuery.each(badBoys, function(index, attendee) {
+      Attendees.blame(attendee.fullName, repo);
+    })
   });
 }
 
