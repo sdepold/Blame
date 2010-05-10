@@ -55,7 +55,7 @@ function lookupBuild(repo, url, number) {
   $.getJSON(url+number+"/api/json?jsonp=?", function (data){
     badBoys = jQuery.unique(data.culprits)
     jQuery.each(badBoys, function(index, attendee) {
-      Attendees.blame(attendee.fullName, repo);
+      Attendees.blame(attendee.fullName.normalize(), repo);
     })
   });
 }
