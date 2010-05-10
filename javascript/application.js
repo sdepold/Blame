@@ -6,7 +6,7 @@ $(document).ready(function() {
     if(name != undefined && name != null && name != window.document)
       Frontend.renderOrUpdateAttendee(name, jQuery.k(name));
   });
-  startTimer(60, function() {
+  startTimer(jQuery.k('polling_time'), function() {
     checkHudson(jQuery.k('url')+'api/json?jsonp=?');
   });
 
