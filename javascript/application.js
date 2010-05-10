@@ -6,8 +6,11 @@ $(document).ready(function() {
   if (jQuery.k('attendees') == null)
     jQuery.k('attendees', []);
 
-  if (jQuery.k('urls') == null)    
-    jQuery.k('urls',{ 'default': prompt('Enter you Hudson project URL (e.g. "http://your.server.com:1234/job/MyProject/"):')});
+  if (jQuery.k('urls') == null) {
+    url = prompt('Enter you Hudson project URL (e.g. "http://your.server.com:1234/job/MyProject/"):').trim()
+    url = (url[url.length-1] == '/') ? url : url+'/'
+    jQuery.k('urls',{ 'default': url });
+  }
 
   Frontend.init();
   $(Attendees.list()).each(function(index, name){
