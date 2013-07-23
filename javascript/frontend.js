@@ -38,7 +38,7 @@ var Frontend = {
 
   },
   playJingle: function () {
-    document.getElementById('sound1').Play();
+    document.getElementById('sound1').play();
   },
   renderDebt: function (attendee) {
     fails = attendee.data('fails');
