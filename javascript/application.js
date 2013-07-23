@@ -17,11 +17,15 @@ $(document).ready(function() {
     if(name != undefined && name != null && name != window.document)
       Frontend.renderOrUpdateAttendee(name, jQuery.k(name));
   });
-  startTimer(jQuery.k('polling_time'), function() {
+
+  var check = function() {
     jQuery.each(jQuery.k('urls'), function(repo, url) {
       checkHudson(repo, url);
-    })
-  });
+    });
+  };
+
+  startTimer(jQuery.k('polling_time'), check);
+  check();
 });
 
 function checkHudson(repo, url) {
@@ -37,7 +41,7 @@ function checkHudson(repo, url) {
 function isNewFail(repo, url, color) {
   if (color == 'blue' || color == 'red') {
     key = repo + '_color'
-  
+
     if (jQuery.k(key) == null)
       jQuery.k(key, 'blue');
 
