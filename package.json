@@ -1,0 +1,20 @@
+{
+  "name": "Blame",
+  "version": "0.0.0",
+  "description": "ERROR: No README.md file found!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node_modules/.bin/static ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sdepold/Blame.git"
+  },
+  "author": "",
+  "license": "BSD",
+  "gitHead": "3d45584dcb6acfb73e16c7600af5bbc87a454bc7",
+  "dependencies": {
+    "node-static": "~0.7.0"
+  }
+}
