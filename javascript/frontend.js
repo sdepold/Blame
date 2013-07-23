@@ -15,11 +15,11 @@ var Frontend = {
           .append($('<div>').attr('id', 'countdown').attr('class', 'counter')
             .click(function(){
               jQuery.k('polling_time',prompt('Enter polling time:'))
-            })     
+            })
           )
         )
       )
-      .append('<embed src="static/slot.wav" autostart=false width=0 height=0 id="sound1" enablejavascript="true">')
+      .append('<audio src="static/slot.wav" id="sound1" preload="auto">')
   },
   splash: function (name, repo) {
     if ($('#splash_container').size() == 0) {
@@ -29,29 +29,29 @@ var Frontend = {
             .append($('<span>').text(name))
             .append($('<small>').html(' on '+repo))
 
-            .append($('<div>').attr('id', 'appendix'))         
+            .append($('<div>').attr('id', 'appendix'))
           )
-        )      
+        )
     } else {
       $('#splash_container #splash #appendix').append('<hr /><small>'+name+' on '+repo+'</small>')
     }
 
   },
   playJingle: function () {
-    document.getElementById('sound1').play();
+    $('#sound1').get(0).play();
   },
   renderDebt: function (attendee) {
     fails = attendee.data('fails');
     full = parseInt(fails / 5);
     rest = (fails % 5);
-  
+
     span = $('<span>').attr('class', 'debt');
     for(var i = 1; i < full; i++) {
       span.append($('<img>').attr('src', 'static/5.gif'));
     }
     if (rest > 0)
       span.append($('<img>').attr('src', 'static/'+rest+'.gif'));
-    
+
     $(attendee).find('.debt').remove();
     $(attendee).append(span);
   },
